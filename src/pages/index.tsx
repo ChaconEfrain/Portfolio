@@ -1,11 +1,84 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import NavMobile from "@/components/NavMobile";
+import Header from "@/components/Header";
+import Technologies from "@/components/Technologies";
+import Projects from "@/components/Projects";
+import Testimonials from "@/components/Testimonials";
+import Footer from "@/components/Footer";
+import ScrollButton from "@/components/ScrollButton";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NavMobileProvider } from "@/context/NavMobileContext";
 
-const inter = Inter({ subsets: ['latin'] })
+const Home = () => {
+  const [displayButton, setDisplayButton] = useState<boolean>(false);
 
-export default function Home() {
+  useEffect(() => {
+    // Event listener to display the "scroll to top" button
+    window.addEventListener("scroll", () => {
+      window.scrollY > 300 ? setDisplayButton(true) : setDisplayButton(false);
+    });
+    //Remove highlight class from nav item
+    const mainSection = document.getElementById("main-section");
+    const navItems = document.querySelectorAll("li");
+    const removeHighlight = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+
+      if (!entry.isIntersecting) return;
+      navItems.forEach((item) => item.classList.remove("item-highlight"));
+    };
+
+    const mainSectionObserverForItems = new IntersectionObserver(
+      removeHighlight,
+      { root: null, threshold: 0.3 }
+    );
+
+    mainSectionObserverForItems.observe(mainSection!);
+
+    //Sticky nav
+    const nav = document.getElementById("nav-bar");
+    const navHeight = nav?.getBoundingClientRect().height;
+
+    const stickyNav = (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+
+      if (!entry.isIntersecting) nav?.classList.add("sticky-nav");
+      else nav?.classList.remove("sticky-nav");
+    };
+
+    const mainSectionObserverForStickyNav = new IntersectionObserver(
+      stickyNav,
+      {
+        root: null,
+        threshold: 0,
+        rootMargin: `-${navHeight}px`,
+      }
+    );
+
+    mainSectionObserverForStickyNav.observe(mainSection!);
+
+    //Reveal the hidden sections
+    const hiddenSections = document.querySelectorAll(".section-hidden");
+
+    const revealSection = (
+      entries: IntersectionObserverEntry[],
+      observer: IntersectionObserver
+    ) => {
+      const [entry] = entries;
+
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.remove("section-hidden");
+      observer.unobserve(entry.target);
+    };
+
+    const sectionObserver = new IntersectionObserver(revealSection, {
+      root: null,
+      threshold: 0.1,
+    });
+
+    hiddenSections.forEach((section) => sectionObserver.observe(section));
+  }, []);
   return (
     <>
       <Head>
@@ -14,110 +87,27 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+      <NavMobileProvider>
+        <NavMobile />
+        <main className="overflow-hidden transition-all duration-300 dark:bg-gradient-to-r dark:from-[#444] dark:to-[#222]">
+          <Header />
+          <Technologies />
+          <Projects />
+          <Testimonials />
+        </main>
+        <Footer />
+        {displayButton && <ScrollButton />}
+      </NavMobileProvider>
     </>
-  )
-}
+  );
+};
+
+export const getStaticProps = async ({ locale }: { locale: string }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["home"])),
+    },
+  };
+};
+
+export default Home;
