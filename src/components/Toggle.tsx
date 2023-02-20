@@ -1,12 +1,10 @@
-import { useRouter } from "next/router";
+import { i18n } from "next-i18next";
 
 const Toggle = () => {
-  const { locale, push } = useRouter();
-
   const changeLanguage = () => {
-    locale === "en"
-      ? push("/", undefined, { locale: "es" })
-      : push("/", undefined, { locale: "en" });
+    i18n?.language === "en"
+      ? i18n.changeLanguage("es")
+      : i18n?.changeLanguage("en");
   };
 
   return (
