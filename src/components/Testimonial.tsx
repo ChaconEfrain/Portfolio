@@ -15,19 +15,37 @@ const Testimonial = ({
   translateToRight,
   translateToLeft,
 }: TTestimonial) => {
-  const [initialClientX, setInitialClientX] = useState<number>();
-  const [finalClientX, setFinalClientX] = useState<number>();
+  const [initialPosition, setInitialPosition] = useState({
+    clientX: 0,
+    clientY: 0,
+  });
+  const [finalPosition, setFinalPosition] = useState({
+    clientX: 0,
+    clientY: 0,
+  });
 
-  const handleTouchStart = (e: TouchEvent<HTMLElement>) =>
-    setInitialClientX(e.touches[0].clientX);
+  const handleTouchStart = (e: TouchEvent<HTMLElement>) => {
+    const position = e.touches[0];
+    setInitialPosition({
+      clientX: position.clientX,
+      clientY: position.clientY,
+    });
+  };
 
-  const handleTouchMove = (e: TouchEvent<HTMLElement>) =>
-    setFinalClientX(e.touches[0].clientX);
+  const handleTouchMove = (e: TouchEvent<HTMLElement>) => {
+    const position = e.touches[0];
+    setFinalPosition({
+      clientX: position.clientX,
+      clientY: position.clientY,
+    });
+  };
 
   const handleTouchEnd = () => {
-    const delta = initialClientX! - finalClientX!;
-    if (delta > 0) translateToRight!();
-    else if (delta < 0) translateToLeft!();
+    const deltaX = initialPosition.clientX - finalPosition.clientX;
+    const deltaY = initialPosition.clientY - finalPosition.clientY;
+    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+    else if (deltaX > 0) translateToRight!();
+    else if (deltaX < 0) translateToLeft!();
   };
 
   return (
