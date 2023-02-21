@@ -34,8 +34,8 @@ export type TTestimonial = {
   linkedIn: string;
   gitHub: string;
   currentSlide?: number;
-  translateToRight?: () => void;
-  translateToLeft?: () => void;
+  translateToRight: () => void;
+  translateToLeft: () => void;
 };
 
 export type NavContext = {
