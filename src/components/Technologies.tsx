@@ -5,6 +5,7 @@ const technologies = [
   "typescript",
   "javascript",
   "react",
+  "next",
   "redux",
   "tailwind",
   "express",
@@ -21,7 +22,7 @@ const Technologies = () => {
       className="section-hidden transition-all duration-1000 pt-40"
     >
       <Container
-        cols="grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8"
+        cols="grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
         gap="gap-8"
         display="grid"
       >
@@ -35,7 +36,9 @@ const Technologies = () => {
           <img
             key={tech}
             className={`aspect-square ${
-              tech === "express" ? "dark:brightness-[500]" : ""
+              tech === "express" || tech === "next"
+                ? "dark:brightness-[1000]"
+                : ""
             }`}
             src={`./${tech}.svg`}
             alt={tech}
