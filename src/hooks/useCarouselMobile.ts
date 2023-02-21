@@ -4,8 +4,8 @@ const useCarouselMobile = ({
   translateToLeft,
   translateToRight,
 }: {
-  translateToLeft: () => void;
-  translateToRight: () => void;
+  translateToLeft: (() => void) | undefined;
+  translateToRight: (() => void) | undefined;
 }) => {
   const [initialPosition, setInitialPosition] = useState({
     clientX: 0,
