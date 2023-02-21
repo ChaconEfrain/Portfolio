@@ -40,6 +40,8 @@ const Testimonials = () => {
                 linkedIn={testimonial.linkedIn}
                 gitHub={testimonial.gitHub}
                 currentSlide={currentSlide}
+                translateToRight={translateToRight}
+                translateToLeft={translateToLeft}
               />
             ))}
           </div>
