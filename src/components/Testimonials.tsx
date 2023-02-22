@@ -23,6 +23,7 @@ const Testimonials = () => {
         </header>
         <div className="flex items-center justify-center md:gap-12 lg:gap-16 w-full sm:max-w-[100rem]">
           <button
+            title="Go to previous slide"
             onClick={translateToLeft}
             className="hidden md:flex text-3xl font-color-light bg-dark w-16 h-16 rounded-full items-center justify-center font-bold"
           >
@@ -46,6 +47,7 @@ const Testimonials = () => {
             ))}
           </div>
           <button
+            title="Go to next slide"
             onClick={translateToRight}
             className="hidden md:flex text-3xl font-color-light bg-dark w-16 h-16 rounded-full items-center justify-center font-bold"
           >
@@ -54,6 +56,7 @@ const Testimonials = () => {
         </div>
         <div className="flex items-center w-full justify-center gap-8 px-16 sm:px-32">
           <button
+            title="Go to previous slide"
             onClick={translateToLeft}
             className="flex md:hidden text-3xl font-color-light bg-dark w-16 h-16 rounded-full items-center justify-center font-bold"
           >
@@ -71,6 +74,7 @@ const Testimonials = () => {
             ))}
           </div>
           <button
+            title="Go to next slide"
             onClick={translateToRight}
             className="flex md:hidden text-3xl font-color-light bg-dark w-16 h-16 rounded-full items-center justify-center font-bold"
           >

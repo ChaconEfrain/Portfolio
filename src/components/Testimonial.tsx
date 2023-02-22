@@ -41,6 +41,7 @@ const Testimonial = ({
           <p className="flex items-center gap-2 font-semibold uppercase">
             {name}{" "}
             <a
+              title={`LinkedIn of ${name}`}
               href={linkedIn}
               target="_blank"
               rel="noreferrer"
@@ -49,6 +50,7 @@ const Testimonial = ({
               <BsLinkedin />
             </a>
             <a
+              title={`GitHub of ${name}`}
               href={gitHub}
               target="_blank"
               rel="noreferrer"

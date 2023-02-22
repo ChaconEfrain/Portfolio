@@ -1,8 +1,10 @@
+import { useId } from "react";
 import { i18n } from "next-i18next";
 import { useRouter } from "next/router";
 
 const Toggle = () => {
   const { locale } = useRouter();
+  const inputId = useId();
 
   const changeLanguage = () => {
     console.log({ i18n, locale });
@@ -17,7 +19,9 @@ const Toggle = () => {
         {locale?.toUpperCase()}
       </span>
       <label className="relative inline-flex items-center cursor-pointer">
+        <label htmlFor={inputId} />
         <input
+          id={inputId}
           onChange={changeLanguage}
           type="checkbox"
           value=""
