@@ -1,20 +1,10 @@
+import useTechnologies from "@/hooks/useTechnologies";
 import { useTranslation } from "next-i18next";
 import Container from "./Container";
 
-const technologies = [
-  "typescript",
-  "javascript",
-  "react",
-  "next",
-  "redux",
-  "tailwind",
-  "express",
-  "node",
-  "postgresql",
-];
-
 const Technologies = () => {
   const { t } = useTranslation("home");
+  const technologies = useTechnologies();
 
   return (
     <section
@@ -32,16 +22,14 @@ const Technologies = () => {
           </p>
           <h2 className="section-title">{t("needSomeone")}</h2>
         </header>
-        {technologies.map((tech) => (
+        {technologies.map(({ name, url }) => (
           <img
-            key={tech}
+            key={name}
             className={`aspect-square ${
-              tech === "express" || tech === "next"
-                ? "dark:brightness-[1000]"
-                : ""
+              name === "Express" ? "dark:brightness-[1000]" : ""
             }`}
-            src={`./${tech}.svg`}
-            alt={tech}
+            src={url}
+            alt={name}
             loading="lazy"
           />
         ))}

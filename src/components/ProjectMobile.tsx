@@ -1,6 +1,8 @@
 import { TProject } from "../types";
 import { BsGithub } from "react-icons/bs";
 import { TbWorld } from "react-icons/tb";
+import useTechnologies from "@/hooks/useTechnologies";
+import { useMemo } from "react";
 
 const ProjectMobile = ({
   title,
@@ -10,6 +12,11 @@ const ProjectMobile = ({
   image,
   url,
 }: TProject) => {
+  const allTechnologies = useTechnologies();
+  const projectTechnologies = useMemo(
+    () => allTechnologies.filter((tech) => technologies.includes(tech.name)),
+    [technologies]
+  );
   return (
     <div className="lg:hidden section-hidden transition-all duration-1000">
       <img
@@ -26,14 +33,14 @@ const ProjectMobile = ({
           <p className="mb-6">{description}</p>
           <footer className="flex flex-col gap-8">
             <div className="flex gap-4">
-              {technologies.map((tech) => (
+              {projectTechnologies.map(({ name, url }) => (
                 <img
-                  key={tech}
+                  key={name}
                   className={`w-12 aspect-square ${
-                    tech === "express" ? "dark:brightness-[500]" : ""
+                    name === "Express" ? "dark:brightness-[500]" : ""
                   }`}
-                  src={`./${tech}.svg`}
-                  alt={`${tech} logo`}
+                  src={url}
+                  alt={`${name} logo`}
                   loading="lazy"
                 />
               ))}

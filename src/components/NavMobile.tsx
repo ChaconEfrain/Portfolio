@@ -82,7 +82,7 @@ const NavMobile = () => {
           </div>
         </div>
         <img
-          src="/images/myPhoto.jpg"
+          src="https://res.cloudinary.com/efrainchacon/image/upload/f_auto/v1677089199/Portfolio/myPhoto_tcteoi.jpg"
           alt="Efraín Chacón"
           className="w-28 rounded-full self-center aspect-square"
         />

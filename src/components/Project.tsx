@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import useTechnologies from "@/hooks/useTechnologies";
 import { BsGithub } from "react-icons/bs";
 import { TbWorld } from "react-icons/tb";
 import { TProject } from "../types";
@@ -12,13 +14,13 @@ const Project = ({
   url,
   rowReverse,
 }: TProject) => {
+  const allTechnologies = useTechnologies();
+  const projectTechnologies = useMemo(
+    () => allTechnologies.filter((tech) => technologies.includes(tech.name)),
+    [technologies]
+  );
   return (
-    <Container
-      display="hidden lg:grid"
-      cols="grid-cols-2"
-      gap="gap-20"
-      extra="section-hidden transition-all duration-1000"
-    >
+    <Container display="hidden lg:grid" cols="grid-cols-2" gap="gap-20">
       <div className={`${rowReverse ? "col-start-2 col-end-2" : ""}`}>
         <div className="flex flex-col gap-10 text-3xl leading-relaxed font-color-dark dark:text-[#f8f9fb] p-8">
           <div className="flex flex-col gap-4">
@@ -29,14 +31,14 @@ const Project = ({
           </div>
           <footer className="flex flex-col gap-8">
             <div className="flex gap-4">
-              {technologies.map((tech) => (
+              {projectTechnologies.map(({ name, url }) => (
                 <img
-                  key={tech}
+                  key={name}
                   className={`w-16 aspect-square ${
-                    tech === "express" ? "dark:brightness-[500]" : ""
+                    name === "Express" ? "dark:brightness-[500]" : ""
                   }`}
-                  src={`./${tech}.svg`}
-                  alt={`${tech} logo`}
+                  src={url}
+                  alt={`${name} logo`}
                   loading="lazy"
                 />
               ))}

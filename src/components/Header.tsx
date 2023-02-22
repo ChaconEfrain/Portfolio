@@ -53,7 +53,7 @@ const Header = () => {
         </div>
         <img
           className="row-start-1 lg:col-start-2 md:w-3/4 lg:w-full aspect-[559/447]"
-          src="/images/mainPhoto.png"
+          src="https://res.cloudinary.com/efrainchacon/image/upload/f_auto/v1677089199/Portfolio/mainPhoto_smj2g6.png"
           alt="Person sitting on a desk with his laptop and programming-related images floating around"
         />
       </Container>

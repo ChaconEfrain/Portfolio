@@ -67,7 +67,7 @@ const Nav = () => {
       className="flex justify-between items-center py-5 md:px-12 px-12 nav z-10"
     >
       <img
-        src="/images/coding_brackets.png"
+        src="https://res.cloudinary.com/efrainchacon/image/upload/f_auto/v1677089199/Portfolio/coding_brackets_gieixh.png"
         alt="Coding brackets"
         className="sm:w-40 w-28 aspect-[183/137]"
       />
@@ -94,7 +94,7 @@ const Nav = () => {
           {darkMode ? <ImSun /> : <FiMoon />}
         </div>
         <img
-          src="/images/myPhoto.jpg"
+          src="https://res.cloudinary.com/efrainchacon/image/upload/f_auto/v1677089199/Portfolio/myPhoto_tcteoi.jpg"
           alt="Efraín Chacón"
           className="w-28 rounded-full hidden md:flex aspect-square"
         />
